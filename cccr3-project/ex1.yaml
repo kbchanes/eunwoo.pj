@@ -19,6 +19,18 @@
       path: /etc/named.conf
       regexp: 'allow-query     { localhost; };'
       replace: 'allow-query { any; };'
+      
+  - name: zones
+    lineinfile:
+      path: /etc/named.rfc1912.zones
+      line: "{{ item.line }}"
+    with_items:
+      - { item.line: 'zone "dong.com" IN {' /n }
+      - { item.line: '        type master;' /n }
+      - { item.line: '        file "dong.com.zone";' /n }
+      - { item.line: '        file "allow-update { none; };' /n }
+      - { item.line: '};' }
+      
 
       
     
