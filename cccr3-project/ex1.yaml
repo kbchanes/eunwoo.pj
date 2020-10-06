@@ -24,10 +24,10 @@
     blockinfile:
       path: /etc/named.rfc1912.zones
       block:
-        zone "dong.com" IN { /n
-               type master;  /n
-               file "dong.com.zone"; /n
-               allow-update { none; }; /n
+        zone "dong.com" IN { </n>
+               type master;  </n>
+               file "dong.com.zone"; </n>
+               allow-update { none; }; </n>
         };
         
       
