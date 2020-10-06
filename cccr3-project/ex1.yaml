@@ -24,9 +24,9 @@
     blockinfile:
       path: /etc/named.rfc1912.zones
       block:
-        'zone "dong.com" IN {'
+        'zone \"dong.com\" IN {'
         'type master;'
-        'file "dong.com.zone";'
+        'file \"dong.com.zone\";'
         'allow-update { none; };'
         '};'
         
