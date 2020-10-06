@@ -1,0 +1,91 @@
+- name: Job for Bastion
+  become: yes
+  hosts: controller
+  tasks:
+  - name: Bastion replace DNS1
+    replace:
+      path: /etc/named.conf
+      regexp: "{{ item.regexp }}"
+      replace: "{{ item.replace }}"
+    with_items:
+      - { regexp: "        listen-on port 53 { 127.0.0.1; };", replace: "        listen-on port 53 { any; };" }
+      - { regexp: "        listen-on-v6 port 53 { ::1; };", replace: "        listen-on-v6 port 53 { any; };" }
+      - { regexp: "        allow-query     { localhost; };", replace: "        allow-query     { any; };" }
+  
+  - name: Bastion replace DNS2
+    lineinfile:
+      path: /etc/named.rfc1912.zones
+      line: "{{ item.line2 }}"
+    with_items:
+      - { line2: "zone "\cccr3team.com"\ IN {" }
+      - { line2: "        type master;" }
+      - { line2: "        file "cccr3team.com.zone";" }
+      - { line2: "        allow-update { none; };" }
+      - { line2: "};" }
+
+  - name: Bastion replace DNS3
+    lineinfile:
+      path: /var/named/dong.com.zone
+      line: "{{ item.line3 }}"
+    with_item:
+      - { line3: '$TTL 3H' }
+      - { line3: '@ IN SOA ns.cccr3team.com. root.cccr3team.com. (' }
+      - { line3: ' 0 ; serial' }
+      - { line3: ' 1D ; refresh' }
+      - { line3: ' 1H ; retry' }
+      - { line3: ' 1W ; expire' }
+      - { line3: ' 3H ) ; minimum' }
+      - { line3: ' ' }
+      - { line3: ' IN NS ns.cccr3team.com.' }
+      - { line3: ' ns IN A 192.168.122.3' }
+      - { line3: ' * IN A 192.168.122.244' }
+      - { line3: ' okd IN A 192.168.122.244' }      
+  
+  - name: Service start named
+    service:
+      name: named
+      state: started
+      enabled: yes
+  
+  - name: Firewall add 53 port
+    firewalld:
+      port: "{{ item }}"
+      permanent: yes
+      state: enabled
+      immeiate: yes
+    with_items:
+      - 53/tcp
+      - 53/udp
+  
+  - name: Bastion replace DNS4
+    lineinfile:
+      path: /etc/sysconfig/network-scripts/ifcfg-eth0
+      line: DNS1=192.168.122.3
+    
+  - name: Restart NetworkManager
+    service:
+      name: NetworkManager
+      state: restarted
+
+- name: OKD Master
+  become: yes
+  hosts: okd1
+  tasks: 
+  - name: OKD replace DNS1
+    lineinfile:
+      path: /etc/sysconfig/network-scripts/ifcfg-eth0
+      line: "{{ item.line4 }}"
+    with_item:
+      - { line4: "NM_CONTROLLED=yes" }
+      - { line4: "PEERDNS=yes" }
+      - { line4: "DNS1=192.168.122.3" }
+  
+  - name: Restart NetworkManager
+    service:
+      name: NetworkManager
+      state: restarted
+    
+  - name: Add IP Forwading
+    lineinfile:
+      path: /etc/sysctl.conf
+      line: net.ipv4.ip_forward=1
