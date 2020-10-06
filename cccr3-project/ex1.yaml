@@ -51,4 +51,29 @@
         ns      IN      A       192.168.122.10
         okd     IN      A       192.168.122.100
 
-
+ 
+  - name: start named
+    service:
+      name: named
+      state: started
+      
+  - name: enable named
+    service:
+      name: named
+      state: enabled
+      
+  - name: firewall tcp
+    firewalld:
+      port: 53/tcp
+      permanent: true
+      state: enabled
+    
+  - name: firesall udp
+    firewalld:
+      port: 53/udp
+      permanent: true
+      state: enabled
+    
+    
+    
+  
