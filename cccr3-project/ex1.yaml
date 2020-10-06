@@ -33,7 +33,7 @@
   - name: create file
     file:
       path: /var/named/dong.com.zone
-      state: file
+      
   
   - name: dns
     blockinfile:
