@@ -21,16 +21,14 @@
       replace: 'allow-query { any; };'
       
   - name: zones
-    lineinfile:
+    blockinfile:
       path: /etc/named.rfc1912.zones
-      line: "{{ item.line }}"
-    with_items:
-      - { item.line: 'zone "dong.com" IN {'  }
-      - { item.line: '        type master;'  }
-      - { item.line: '        file "dong.com.zone";' }
-      - { item.line: '        file "allow-update { none; };' }
-      - { item.line: '};' }
-      
-
+      block:
+        'zone "dong.com" IN {'
+        '        type master;'
+        '        file "dong.com.zone";'
+        '        allow-update { none; };'
+        '};'
+        
       
     
