@@ -5,6 +5,7 @@
   hosts: vastion 
   tasks:
     - name: ssh_copy_id
+      tags: run
       shell: > 
         ssh-copy-id student@192.168.122.100
       
