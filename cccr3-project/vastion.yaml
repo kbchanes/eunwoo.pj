@@ -1,8 +1,10 @@
 ---
+
 - name: ssh
   hosts: vastion
-  roles:
-    - role: student.ssh_copy_id
+  
+  tasks:
+    - name: ssh_copy_id
       vars:
         hostname: 192.168.122.100
         username: student
