@@ -1,11 +1,11 @@
 ---
 
-- name: ssh
-  gather_facts: no
-  become: yes
-  hosts: vastion 
-  tasks:
-    - local_action: command ssh-copy-id student@192.168.122.100
+# - name: ssh
+#   gather_facts: no
+#   become: yes
+#   hosts: vastion 
+#   tasks:
+#     - local_action: command ssh-copy-id student@192.168.122.100
     
       
 #       hostname: 192.168.122.100
