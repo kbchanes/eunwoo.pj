@@ -1,12 +1,7 @@
 ---
 
-- hosts: vastion
-  become: yes
-  tasks:
-  - name: ssh-copy-id
-    command: ssh-copy-id student@192.168.122.100
 
-- hosts: controller
+- hosts: awx-all
   become: yes
   tasks:
   - name: yum bind
