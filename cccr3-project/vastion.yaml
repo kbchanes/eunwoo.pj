@@ -89,6 +89,63 @@
       name: NetworkManager
       state: restart 
       
+  - name: add net.ipv4
+    lineinfile:
+      path: /etc/sysctl.conf
+      line: 'net.ipv4.ip_forward=1'
       
+  - name: install openshift
+    yum:
+      name: centos-release-openshift-origin311.noarch
+      state: installed
+      
+  - name: install ansible
+    yum:
+      name: openshift-ansible ansible
+      state: installed
+      
+  - name: create file
+    file:
+      path: /usr/share/ansible/openshift-ansible/inventory/hosts.localhost
+      state: touch
+  
+  - name: add inventory
+    blockinfile:
+      path: /usr/share/ansible/openshift-ansible/inventory/host.localhost
+      block: |
+        [OSEv3:children]
+        masters
+        nodes
+        etcd
+        
+        [OSEv3:vars]
+        os_firewall_use_firewalld=true
+        openshift_pkg_version=-3.11.*
+        openshift_deployment_type=origin
+        openshift_portal_net=172.30.0.0/16
+        openshift_disable_check=disk_availability,memory_availability,docker_image_availability
+        
+        openshift_node_groups=[{'name': 'node-config-all-in-one', 'labels': ['node-role.kubernetes.io/master=true', 'node-role.kubernetes.io/infra=true','node-role.kubernetes.io/compute=true']}]
+        
+        openshift_master_default_subdomain=okd.dong.com
+        openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login':'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
+
+        debug_level=6
+        
+        ansible_ssh_user=root
+        
+        ansible_become=true
+
+        openshift_cockpit_deployer_image='docker.io/timbordemann/cockpit-kubernetes:latest'
+
+        [masters]
+        okd.dong.com openshift_schedulable=true
+        [etcd]
+        okd.dong.com
+        [nodes]
+        okd.dong.com openshift_node_group_name='node-config-all-in-one'
+        
+        
+        
     
   
