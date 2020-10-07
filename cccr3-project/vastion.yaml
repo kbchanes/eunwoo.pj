@@ -2,6 +2,11 @@
 - hosts: controller
   become: yes
   tasks:
+  - name: yum bind
+    yum:
+      name: bind
+      state: installed 
+      
   - name: replace named.conf
     replace:
       path: /etc/named.conf
@@ -77,7 +82,7 @@
   - name: ifcfg p
     lineinfile:
       path: /etc/sysconfig/network-scripts/ifcfg-eth0
-      line: 'DNS=192.168.122.10
+      line: 'DNS=192.168.122.10'
       
   - name: service start net man
     service:
