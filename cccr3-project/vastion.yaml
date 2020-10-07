@@ -1,6 +1,7 @@
 ---
 
 - name: ssh
+  gather_facts: no
   become: yes
   hosts: vastion 
   tasks:
