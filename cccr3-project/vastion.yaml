@@ -106,7 +106,7 @@
   - name: service start net man
     service:
       name: NetworkManager
-      state: restart 
+      state: restarted 
       
   
 - hosts: worker
