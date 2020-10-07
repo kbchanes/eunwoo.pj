@@ -117,7 +117,7 @@
       line: 'nameserver 192.168.122.10'
 
     
-- hosts: all
+- hosts: awx-all
   become: yes
   tasks:
   - name: add net.ipv4
