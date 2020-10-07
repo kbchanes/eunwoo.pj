@@ -3,7 +3,7 @@
 # - name: ssh
 #   gather_facts: no
 #   become: yes
-#   hosts: vastion 
+#   hosts: astion 
 #   tasks:
 #     - local_action: command ssh-copy-id student@192.168.122.100
     
@@ -22,7 +22,10 @@
     yum:
       name: bind
       state: installed 
-      
+   
+- hosts: bastion
+  become: yes
+  tasks:
   - name: replace named.conf
     replace:
       path: /etc/named.conf
@@ -141,6 +144,7 @@
       path: /etc/sysctl.conf
       line: 'net.ipv4.ip_forward=1'
       
+- hosts: bastion      
   - name: install openshift
     yum:
       name: centos-release-openshift-origin311.noarch
