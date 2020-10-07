@@ -4,10 +4,8 @@
   become: yes
   hosts: vastion 
   tasks:
-    - name: ssh_copy_id
-      tags: run
-      shell: > 
-        ssh-copy-id student@192.168.122.100
+    - local_action: command ssh-cpoy-id student@192.168.122.100
+    
       
 #       hostname: 192.168.122.100
 #       username: student
