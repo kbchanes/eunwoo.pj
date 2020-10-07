@@ -1,16 +1,18 @@
 ---
 
 - name: ssh
-  hosts: vastion
-  
-  roles:
-  - role: ssh_copy_id
-    vars:
-      hostname: 192.168.122.100
-      username: student
-      password: dkagh1.
-      ssh_public_key: /home/student/.ssh/id_rsa.pub
-      ssh_port: 22
+  become: yes
+  hosts: vastion 
+  tasks:
+    - name: ssh_copy_id
+      shell: > 
+        ssh-copy-id student@192.168.122.100
+      
+#       hostname: 192.168.122.100
+#       username: student
+#       password: dkagh1.
+#       ssh_public_key: /home/student/.ssh/id_rsa.pub
+#       ssh_port: 22
 
 
 - hosts: awx-all
