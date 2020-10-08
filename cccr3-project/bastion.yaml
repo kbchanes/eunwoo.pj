@@ -12,7 +12,7 @@
       path: /usr/bin/expect
       block: |
          set prompt "#" 
-         spawn bash -c "ssh-copy-id 192.168.122.10" 
+         spawn bash -c "ssh-copy-id student@192.168.122.10" 
          expect { 
            "yes/no" { send "yes\r"; exp_continue} 
            -nocase "password" {send "dkagh1.\r"; exp_continue } 
