@@ -80,7 +80,7 @@
   - name: start named
     service:
       name: named
-      state: start
+      state: started
       
   - name: enable named
     service:
