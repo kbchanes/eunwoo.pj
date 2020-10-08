@@ -1,7 +1,7 @@
 ---
 - hosts: bastion
   become: yes
-  tsaks: 
+  tasks: 
   - name: yum expect
     yum:
       name: expect
