@@ -129,7 +129,7 @@
   - name: ifcfg p
     lineinfile:
       path: /etc/resolv.conf
-      line: 'nameserver 192.168.122.10'
+      line: 'nameserver 192.168.122.163'
 
     
 - hosts: baswor
