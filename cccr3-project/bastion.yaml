@@ -73,7 +73,7 @@
                                                 1W      ; expire
                                                 3H )    ; minimum
                 IN      NS      ns.dong.com.
-        ns      IN      A       192.168.122.10
+        ns      IN      A       192.168.122.163
         okd     IN      A       192.168.122.100
 
  
@@ -102,7 +102,7 @@
   - name: ifcfg p
     lineinfile:
       path: /etc/sysconfig/network-scripts/ifcfg-eth0
-      line: 'DNS=192.168.122.10'
+      line: 'DNS=192.168.122.163'
       
   - name: service start net man
     service:
