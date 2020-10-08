@@ -10,7 +10,11 @@
 #     - selinux:
 #         state: disabled
       
-    
+- hosts: bastion
+  become: true
+  tasks:
+  - name: ssh-key
+    command: sshpass -p dkagh1. ssh-copy-id -i /home/student/.ssh/id_rsa.pub -o StricHostKeyChecking=no student@192.168.122.100
     
 - hosts: baswor
   become: yes
