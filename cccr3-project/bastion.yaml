@@ -4,16 +4,16 @@
   hosts: bastion
   gather_facts: no
   tasks:
-  - name: sssh
-    connection: local
-    commad: "cat /home/student/.ssh/id_rsa.pub"
-    register: id_pub
-    run_once: true
+     - name: ssshsshpass ssh-copy-id ansible
+       connection: local
+       commad: "cat /home/student/.ssh/id_rsa.pub"
+       register: id_pub
+       run_once: true
     
-  - name: ath
-    lineinfile:
-      dest: /home/student/.ssh/authorized_keys
-      line: "{{ id_pub.stdout }}"
+     - name: ath
+       lineinfile:
+         dest: /home/student/.ssh/authorized_keys
+         line: "{{ id_pub.stdout }}"
     
 - hosts: baswor
   become: yes
