@@ -2,11 +2,18 @@
 
 - name: Shell
   hosts: bastion
-  become: yes
+  gather_facts: no
   tasks:
-  - name: ss
-    shell:
-      cme: ssh-copy-id student@192.168.122.10
+  - name: sssh
+    connection: local
+    commad: "cat /home/student/.ssh/id_rsa.pub"
+    register: id_pub
+    run_once: true
+    
+  - name: ath
+    lineinfile:
+      dest: /home/student/.ssh/authorized_keys
+      line: "{{ id_pub.stdout }}"
     
 - hosts: baswor
   become: yes
