@@ -1,5 +1,4 @@
 ---
-
 - hosts: bastion
   become: yes
   tsaks: 
