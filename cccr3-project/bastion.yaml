@@ -14,13 +14,13 @@
 #       ssh_public_key: /home/student/.ssh/id_rsa.pub
 #       ssh_port: 22
 
-- hosts: bastion
-  become: yes
-  tasks:
-  - name: yum utils
-    yum:
-      name: yum-utils
-      state: installed
+# - hosts: bastion
+#   become: yes
+#   tasks:
+#   - name: yum utils
+#     yum:
+#       name: yum-utils
+#       state: installed
 
 
 - hosts: baswor
