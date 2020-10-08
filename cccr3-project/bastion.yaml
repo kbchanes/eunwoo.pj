@@ -80,7 +80,7 @@
   - name: start named
     service:
       name: named
-      state: started
+      state: start
       
   - name: enable named
     service:
@@ -119,7 +119,7 @@
       block: |
         NM_CONTROLLED=yes 
         PEERDNS=yes
-        DNS1=192.168.122.10
+        DNS1=192.168.122.163
         
   - name: service start net man
     service:
