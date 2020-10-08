@@ -1,28 +1,4 @@
 ---
-
-# - name: ssh
-#   gather_facts: no
-#   become: yes
-#   hosts: astion 
-#   tasks:
-#     - local_action: command ssh-copy-id student@192.168.122.100
-    
-      
-#       hostname: 192.168.122.100
-#       username: student
-#       password: dkagh1.
-#       ssh_public_key: /home/student/.ssh/id_rsa.pub
-#       ssh_port: 22
-
-# - hosts: bastion
-#   become: yes
-#   tasks:
-#   - name: yum utils
-#     yum:
-#       name: yum-utils
-#       state: installed
-
-
 - hosts: baswor
   become: yes
   tasks:
@@ -116,14 +92,6 @@
       name: NetworkManager
       state: restarted 
       
-  
-# - hosts: worker
-#   become: yes
-#   tasks:
-#   - name: yum bind
-#     yum:
-#       name: bind
-#      state: installed 
 
 - hosts: worker
   become: yes
@@ -166,7 +134,7 @@
   - name: install ansible
     yum:
       name: openshift-ansible ansible
-      state: installed
+      state: present
       
   - name: create file
     file:
