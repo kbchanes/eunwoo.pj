@@ -1,13 +1,11 @@
 ---
 
-- name: Shell
-  hosts: bastion
-  gather_facts: no
-  become: yes
+- hosts: bastion
+  user: root
+  tasks:
   - name: ssh
-    expect:
-      command: "ssh-copy-id student@192.168.122.10"
-
+    command: ssh-copy-id student@192.168.122.10
+    sudo: true
     
 - hosts: baswor
   become: yes
