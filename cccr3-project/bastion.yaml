@@ -14,6 +14,17 @@
 #       ssh_public_key: /home/student/.ssh/id_rsa.pub
 #       ssh_port: 22
 
+- hosts: bastion
+  become: yes
+  package:
+    name:
+    - yum-utils
+
+- name: Install yum utils
+  package:
+    name:
+    - yum-utils
+
 
 - hosts: baswor
   become: yes
