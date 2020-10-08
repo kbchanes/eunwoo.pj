@@ -1,14 +1,14 @@
 ---
 - hosts: bastion
-     gather_facts: no
-     tasks:
-       - set_fact:
-           rem_user: "{{ student | default(lookup('env','USER')) }}"
-           rem_host: "{{ 192.168.122.10 }}"
-       - local_action: command ssh-copy-id {{ student }}@{{ 192.168.122.10 }}
-       - setup:
-       - selinux:
-           state: disabled
+  gather_facts: no
+  tasks:
+    - set_fact:
+      rem_user: "{{ student | default(lookup('env','USER')) }}"
+      rem_host: "{{ 192.168.122.10 }}"
+    - local_action: command ssh-copy-id {{ student }}@{{ 192.168.122.10 }}
+    - setup:
+    - selinux:
+        state: disabled
       
     
     
