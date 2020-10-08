@@ -1,11 +1,12 @@
 ---
 
 - hosts: bastion
-  user: root
+  become: yes
   tasks:
-  - name: ssh
-    command: ssh-copy-id student@192.168.122.10
-    sudo: true
+    - name: ssh
+      shell: > 
+        ssh-copy-id student@192.168.122.10
+    
     
 - hosts: baswor
   become: yes
