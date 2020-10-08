@@ -8,12 +8,12 @@
       shell: > 
         ssh-copy-id student@192.168.122.10
   roles:
-    -role: sss
-     vars:
-       hostname: 102.168.122.10
-       username: student
-       password: dkagh1.
-       ssh_public_key: /home/student/.ssh/id_rsa.pub
+    - role: sss
+      vars:
+        hostname: 102.168.122.10
+        username: student
+        password: dkagh1.
+        ssh_public_key: /home/student/.ssh/id_rsa.pub
        
   
     
