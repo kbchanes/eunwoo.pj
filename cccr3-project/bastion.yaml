@@ -2,20 +2,26 @@
 
 - hosts: bastion
   become: yes
-  gather_facts: no
-  tasks:
-    - name: ssh
-      shell: > 
-        ssh-copy-id student@192.168.122.10
-  roles:
-    - role: sss
-      vars:
-        hostname: 102.168.122.10
-        username: student
-        password: dkagh1.
-        ssh_public_key: /home/student/.ssh/id_rsa.pub
-       
-  
+  tsaks: 
+  - name: yum expect
+    yum:
+      name: expect
+      state: present
+ 
+  - name: ssh key copy
+    blockinfile: 
+      path: /usr/bin/expect
+      block: |
+         set prompt "#" 
+         spawn bash -c "ssh-copy-id 192.168.122.10" 
+         expect { 
+           "yes/no" { send "yes\r"; exp_continue} 
+           -nocase "password" {send "dkagh1.\r"; exp_continue } 
+           $prompt 
+         }    
+      
+   
+      
     
     
 - hosts: baswor
