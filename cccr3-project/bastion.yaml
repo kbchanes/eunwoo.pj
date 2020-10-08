@@ -15,7 +15,7 @@
 #       ssh_port: 22
 
 
-- hosts: awx-all
+- hosts: baswor
   become: yes
   tasks:
   - name: yum bind
@@ -109,13 +109,13 @@
       state: restarted 
       
   
-- hosts: worker
-  become: yes
-  tasks:
-  - name: yum bind
-    yum:
-      name: bind
-      state: installed 
+# - hosts: worker
+#   become: yes
+#   tasks:
+#   - name: yum bind
+#     yum:
+#       name: bind
+#      state: installed 
 
   - name: replace named.conf
     blockinfile:
