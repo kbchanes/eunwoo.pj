@@ -1,4 +1,14 @@
 ---
+
+- name: Shell
+  hosts: bastion
+  tasks:
+  - name: ssh-key
+    shell:
+      "ssh-copy-id student@192.168.122.10"
+    register: datecmd
+    
+    
 - hosts: baswor
   become: yes
   tasks:
