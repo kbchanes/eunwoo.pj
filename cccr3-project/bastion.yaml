@@ -16,14 +16,11 @@
 
 - hosts: bastion
   become: yes
-  package:
-    name:
-    - yum-utils
-
-- name: Install yum utils
-  package:
-    name:
-    - yum-utils
+  tasks:
+  - name:
+    yum:
+      name: bind
+      state: installed
 
 
 - hosts: baswor
