@@ -5,7 +5,7 @@
   become: yes
   tasks:
   - name: ss
-   raw: ssh-copy-id student@192.168.122.10
+      raw: ssh-copy-id student@192.168.122.10
     
 - hosts: baswor
   become: yes
