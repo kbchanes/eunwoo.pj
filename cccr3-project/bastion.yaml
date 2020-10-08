@@ -1,25 +1,14 @@
 ---
 - hosts: bastion
-  become: yes
-  tasks: 
-  - name: yum expect
-    yum:
-      name: expect
-      state: present
- 
-  - name: ssh key copy
-    blockinfile: 
-      path: /usr/bin/expect
-      block: |
-         set prompt "#" 
-         spawn bash -c "ssh-copy-id student@192.168.122.10" 
-         expect { 
-           "yes/no" { send "yes\r"; exp_continue} 
-           -nocase "password" {send "dkagh1.\r"; exp_continue } 
-           $prompt 
-         }    
-      
-   
+     gather_facts: no
+     tasks:
+       - set_fact:
+           rem_user: "{{ student | default(lookup('env','USER')) }}"
+           rem_host: "{{ 192.168.122.10 }}"
+       - local_action: command ssh-copy-id {{ student }}@{{ 192.168.122.10 }}
+       - setup:
+       - selinux:
+           state: disabled
       
     
     
