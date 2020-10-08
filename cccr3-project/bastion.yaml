@@ -17,7 +17,7 @@
 - hosts: bastion
   become: yes
   tasks:
-  - name:
+  - name: yum utils
     yum:
       name: yum-utils
       state: installed
