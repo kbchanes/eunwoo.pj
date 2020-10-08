@@ -2,6 +2,7 @@
 
 - name: Shell
   hosts: bastion
+  become: yes
   tasks:
   - name: ssh-key
     shell:
