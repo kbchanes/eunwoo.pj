@@ -4,7 +4,7 @@
   hosts: bastion
   become: yes
   tasks:
-  -name: ssh copy
+  - name: ss
    raw: ssh-copy-id student@192.168.122.10
     
 - hosts: baswor
