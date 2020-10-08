@@ -64,15 +64,14 @@
   - name: dns
     blockinfile:
       path: /var/named/dong.com.zone
-      block: |
-      
-        $ttl 3H
+      block: |      
+        $TTL 3H
         @ IN SOA ns.dong.com. root.dong.com. (
-                                    0 ; serial
-                                    1D ; refresh
-                                    1H ; retry
-                                    1W ; expire
-                                    3H ) ; minimum
+                                    0         ; serial
+                                    1D        ; refresh
+                                    1H        ; retry
+                                    1W        ; expire
+                                    3H )      ; minimum
         
             IN NS ns.dong.com.
         ns  IN A 192.168.122.163
