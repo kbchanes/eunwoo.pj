@@ -19,7 +19,7 @@
   tasks:
   - name:
     yum:
-      name: bind
+      name: yum-utils
       state: installed
 
 
