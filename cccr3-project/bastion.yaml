@@ -3,17 +3,11 @@
 - name: Shell
   hosts: bastion
   gather_facts: no
-  tasks:
-     - name: ssshsshpass ssh-copy-id ansible
-       connection: local
-       commad: "cat /home/student/.ssh/id_rsa.pub"
-       register: id_pub
-       run_once: true
-    
-     - name: ath
-       lineinfile:
-         dest: /home/student/.ssh/authorized_keys
-         line: "{{ id_pub.stdout }}"
+  become: yes
+  - name: ssh
+    expect:
+      command: "ssh-copy-id student@192.168.122.10"
+
     
 - hosts: baswor
   become: yes
