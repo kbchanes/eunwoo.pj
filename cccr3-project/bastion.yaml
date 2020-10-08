@@ -29,7 +29,7 @@
   - name: yum bind
     yum:
       name: bind
-      state: installed 
+      state: present
    
 - hosts: bastion
   become: yes
