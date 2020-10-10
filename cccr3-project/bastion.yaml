@@ -64,7 +64,7 @@
       - " type master;"  
       - " file \"dong.com.zone\";" 
       - " allow-update { none; };"
-      - "};"
+      - "}; "
       
   - name: create file
     file:
