@@ -16,6 +16,18 @@
   - name: ssh-key
     command: sshpass -p toor ssh-copy-id -i /root/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@192.168.122.200
     
+- hosts: bastion
+  become: true
+  tasks:
+  - name: static ip
+       vmware_guest:
+         networks:
+           - name: eth0
+             type: static
+             ip: 192.168.122.40/24
+      
+  
+    
 - hosts: baswor
   become: yes
   tasks:
