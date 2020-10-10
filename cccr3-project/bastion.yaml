@@ -36,6 +36,12 @@
       name: bind-utils
       state: present
       
+  - name: replave.resolv.conf
+    replace:
+      path: /etc/resolv.conf
+      regexp: 'nameserver 192.168.122.1'
+      replace: 'nameserver 192.168.122.40'
+      
 - hosts: bastion
   become: yes
   tasks:
