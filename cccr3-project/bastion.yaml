@@ -23,7 +23,17 @@
     yum:
       name: bind
       state: present
+      
+  - name: yum bind
+    yum:
+      name: bind-chroot
+      state: present
    
+  - name: yum bind
+    yum:
+      name: bind-utils
+      state: present
+      
 - hosts: bastion
   become: yes
   tasks:
