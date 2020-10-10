@@ -208,6 +208,12 @@
         [nodes]
         okd.dong.com openshift_node_group_name='node-config-all-in-one'
         
+  - name: ansible-playbook deploy1
+    command: ansible-playbook -i /usr/share/ansible/openshift-ansible/inventory/hosts.localhost /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml
+        
+        
+  - name: ansible-playbook deploy2
+    command: ansible-playbook -i /usr/share/ansible/openshift-ansible/inventory/hosts.localhost /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
         
  
     
