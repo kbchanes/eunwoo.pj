@@ -119,12 +119,13 @@
       state: restarted 
       
 - hosts: bastion
-  roles:
-    - role: network
-      network_ether_interfaces:
-       - device: eth0
-         bootproto: static
-         cidr: 192.168.122.40/24
+  become: yes
+  tasks:
+  - name: network
+    network_ether_interfaces:
+      device: eth0
+      bootproto: static
+      cidr: 192.168.122.40/24
          
       
 - hosts: worker
