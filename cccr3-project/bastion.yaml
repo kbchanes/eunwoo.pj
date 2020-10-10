@@ -159,7 +159,12 @@
       
   - name: install ansible
     yum:
-      name: openshift-ansible ansible
+      name: openshift-ansible 
+      state: present
+      
+  - name: install ansible
+    yum:
+      name: ansible 
       state: present
       
   - name: create file
