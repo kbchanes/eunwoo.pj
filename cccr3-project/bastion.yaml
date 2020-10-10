@@ -22,7 +22,7 @@
   - name: yum bind
     yum:
       name: bind
-      state: latest
+      state: present
    
 - hosts: bastion
   become: yes
