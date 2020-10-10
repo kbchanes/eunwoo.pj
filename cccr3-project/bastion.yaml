@@ -44,6 +44,7 @@
       
 - hosts: bastion
   become: yes
+  tasks:
   - name: dhcp
     replace:
       path: /etc/sysconfig/network-scripts/ifcfg-eth0
