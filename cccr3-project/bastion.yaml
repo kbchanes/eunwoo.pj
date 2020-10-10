@@ -93,11 +93,8 @@
     service:
       name: named
       state: started
-      
-  - name: enable named
-    service:
-      name: named
-      state: enabled
+      enabled: yes
+
       
   - name: firewall tcp
     firewalld:
