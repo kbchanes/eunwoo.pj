@@ -14,7 +14,7 @@
   become: true
   tasks:
   - name: ssh-key
-    command: sshpass -p toor ssh-copy-id -i /home/student/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@192.168.122.100
+    command: sshpass -p toor ssh-copy-id -i /home/student/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@192.168.122.200
     
 - hosts: baswor
   become: yes
@@ -73,8 +73,8 @@
          1W ; expire
          3H ) ; minimum
           IN NS ns.dong.com.
-        ns IN A 192.168.122.163
-        okd IN A 192.168.122.100
+        ns IN A 192.168.122.40
+        okd IN A 192.168.122.200
         
  
   - name: start named
@@ -102,7 +102,7 @@
   - name: ifcfg p
     lineinfile:
       path: /etc/sysconfig/network-scripts/ifcfg-eth0
-      line: 'DNS=192.168.122.163'
+      line: 'DNS=192.168.122.40'
       
   - name: service start net man
     service:
@@ -119,7 +119,7 @@
       block: |
         NM_CONTROLLED=yes 
         PEERDNS=yes
-        DNS1=192.168.122.163
+        DNS1=192.168.122.40
         
   - name: service start net man
     service:
@@ -129,7 +129,7 @@
   - name: ifcfg p
     lineinfile:
       path: /etc/resolv.conf
-      line: 'nameserver 192.168.122.163'
+      line: 'nameserver 192.168.122.40'
 
     
 - hosts: baswor
