@@ -46,14 +46,15 @@
       replace: 'allow-query { any; };'
       
   - name: zones
-    blockinfile:
+    lineinfile:
       path: /etc/named.rfc1912.zones
-      block: |
-        zone "dong.com" IN { 
-                type master;  
-                file "dong.com.zone"; 
-                allow-update { none; }; 
-        };
+      line: "{{ item }}"
+    with_items:
+      - "zone "dong.com" IN { " 
+      - "         type master;"  
+      - "         file "dong.com.zone";" 
+      - "         allow-update { none; };"
+      - "};"
       
   - name: create file
     file:
@@ -62,19 +63,20 @@
       
   
   - name: dns
-    blockinfile:
+    lineinfile:
       path: /var/named/dong.com.zone
-      block: |
-        $TTL 3H
-        @ IN SOA ns.dong.com. root.dong.com. (
-         0 ; serial
-         1D ; refresh
-         1H ; retry
-         1W ; expire
-         3H ) ; minimum
-          IN NS ns.dong.com.
-        ns IN A 192.168.122.40
-        okd IN A 192.168.122.200
+      line: "{{ item }}"
+    with_items:
+      - "$TTL 3H"
+      - "@ IN SOA ns.dong.com. root.dong.com. ("
+      - "         0 ; serial"
+      - "         1D ; refresh"
+      - "         1H ; retry"
+      - "         1W ; expire"
+      - "         3H ) ; minimum"
+      - "   IN NS ns.dong.com."
+      - "   ns IN A 192.168.122.40"
+      - "   okd IN A 192.168.122.200"
         
  
   - name: start named
