@@ -50,7 +50,7 @@
       path: /etc/named.rfc1912.zones
       line: "{{ item }}"
     with_items:
-      - "zone "dong.com" IN { " 
+      - "zone "dong.com" IN {" 
       - "         type master;"  
       - "         file "dong.com.zone";" 
       - "         allow-update { none; };"
