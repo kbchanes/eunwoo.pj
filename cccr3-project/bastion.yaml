@@ -118,6 +118,22 @@
       name: NetworkManager
       state: restarted 
       
+- hosts: bastion
+  roles:
+    - role: network
+      network_ether_interfaces:
+       - device: eth0
+         bootproto: static
+         cidr: 192.168.122.40/24
+         
+      
+- hosts: worker
+  roles:
+    - role: network
+      network_ether_interfaces:
+       - device: eth0
+         bootproto: static
+         cidr: 192.168.122.200/24
 
 - hosts: worker
   become: yes
