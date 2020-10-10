@@ -44,6 +44,14 @@
       
 - hosts: bastion
   become: yes
+  - name: dhcp
+    replace:
+      path: /etc/sysconfig/network-scripts/ifcfg-eth0
+      regexp: 'BOOTPROTO="dchp"'
+      replace: 'BOOTPROTO=none'
+
+- hosts: bastion
+  become: yes
   tasks:
   - name: replace named.conf
     replace:
@@ -63,11 +71,7 @@
       regexp: 'allow-query     { localhost; };'
       replace: 'allow-query { any; };'
   
-  - name: dhcp
-    replace:
-      path: /etc/sysconfig/network-scripts/ifcfg-eth0
-      regexp: 'BOOTPROTO=/"dchp/"'
-      replace: 'BOOTPROTO=/"none/"'
+
       
       
   - name: zones
