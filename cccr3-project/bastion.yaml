@@ -48,9 +48,9 @@
       regexp: 'BOOTPROTO="dhcp"'
       replace: 'BOOTPROTO=none'
       
-  - hosts: bastion
-    become: yes
-    tasks:
+- hosts: bastion
+  become: yes
+  tasks:
   - name: dns
     lineinfile:
       path: /etc/sysconfig/network-scripts/ifcfg-eth0
