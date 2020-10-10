@@ -174,7 +174,7 @@
   
   - name: add inventory
     blockinfile:
-      path: /usr/share/ansible/openshift-ansible/inventory/host.localhost
+      path: /usr/share/ansible/openshift-ansible/inventory/hosts.localhost
       block: |
         [OSEv3:children]
         masters
