@@ -15,17 +15,7 @@
   tasks:
   - name: ssh-key
     command: sshpass -p toor ssh-copy-id -i /root/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@192.168.122.200
-    
-- hosts: bastion
-  become: true
-  tasks:
-  - name: static ip
-       vmware_guest:
-         networks:
-           - name: eth0
-             type: static
-             ip: 192.168.122.40/24
-      
+
   
     
 - hosts: baswor
@@ -66,6 +56,13 @@
       path: /etc/named.conf
       regexp: 'allow-query     { localhost; };'
       replace: 'allow-query { any; };'
+  
+  - name: dhcp
+    replace:
+      path: /etc/sysconfig/network-scripts/ifcfg-eth0
+      regexp: 'BOOTPROTO="dchp"'
+      replace: 'BOOTPROTO="none"'
+      
       
   - name: zones
     lineinfile:
@@ -130,23 +127,9 @@
       name: NetworkManager
       state: restarted 
       
-- hosts: bastion
-  become: yes
-  tasks:
-  - name: network
-    network_ether_interfaces:
-      device: eth0
-      bootproto: static
-      cidr: 192.168.122.40/24
-         
+
       
-- hosts: worker
-  roles:
-    - role: network
-      network_ether_interfaces:
-       - device: eth0
-         bootproto: static
-         cidr: 192.168.122.200/24
+
 
 - hosts: worker
   become: yes
