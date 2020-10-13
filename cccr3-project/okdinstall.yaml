@@ -268,7 +268,7 @@
 
         debug_level=6
         
-        ansible_ssh_user=root
+        ansible_ssh_user=centos
         
         ansible_become=true
 
