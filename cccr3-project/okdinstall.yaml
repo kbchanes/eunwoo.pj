@@ -46,8 +46,8 @@
   - name: dhcp
     replace:
       path: /etc/sysconfig/network-scripts/ifcfg-eth0
-      regexp: 'BOOTPROTO="dhcp"'
-      replace: 'BOOTPROTO="none'
+      regexp: 'BOOTPROTO=dhcp'
+      replace: 'BOOTPROTO=static'
       
 - hosts: bastion
   become: yes
