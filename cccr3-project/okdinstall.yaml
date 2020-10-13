@@ -229,7 +229,17 @@
     yum:
       name: ansible 
       state: present
+ 
+  - name: install python-pip
+    yum:
+      name: python-pip
+      state: present
       
+  - name: install 
+    pip:
+      name: ansible==2.6.20
+      
+   
   - name: create file
     file:
       path: /usr/share/ansible/openshift-ansible/inventory/hosts.localhost
