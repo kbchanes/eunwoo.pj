@@ -15,29 +15,7 @@
   tasks:
   - name: ssh-key
     command: sshpass -p toor ssh-copy-id -i /root/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@192.168.122.200
-    
-
-  - name: dns static
-    blockinfile:
-      path: /etc/sysconfig/network-scripts/ifcfg-eth0
-      block: |
-        IPADDR="192.168.122.40"
-        NETMASK="255.255.255.0"
-        GATEWAY="192.168.122.1"
-        PREFIX="24"
-        
-- hosts: worker
-  become: yes
-  tasks:
-  - name: dns static
-    blockinfile:
-      path: /etc/sysconfig/network-scripts/ifcfg-eth0
-      block: |
-        IPADDR="192.168.122.200"
-        NETMASK="255.255.255.0"
-        GATEWAY="192.168.122.1"
-        PREFIX="24"
-      
+  
         
  
     
@@ -70,6 +48,36 @@
       path: /etc/sysconfig/network-scripts/ifcfg-eth0
       regexp: 'BOOTPROTO="dhcp"'
       replace: 'BOOTPROTO="none'
+      
+- hosts: bastion
+  become: yes
+  tasks:
+  - name: dns static
+    blockinfile:
+      path: /etc/sysconfig/network-scripts/ifcfg-eth0
+      block: |
+        IPADDR="192.168.122.40"
+        NETMASK="255.255.255.0"
+        GATEWAY="192.168.122.1"
+        PREFIX="24"
+        
+          
+- hosts: worker
+  become: yes
+  tasks:
+  - name: dns static
+    blockinfile:
+      path: /etc/sysconfig/network-scripts/ifcfg-eth0
+      block: |
+        IPADDR="192.168.122.200"
+        NETMASK="255.255.255.0"
+        GATEWAY="192.168.122.1"
+        PREFIX="24"
+      
+        
+ 
+    
+        
       
   - name: network restart
     service:
