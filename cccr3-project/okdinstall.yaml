@@ -1,12 +1,12 @@
 
 - hosts: bastion
-  become: true
+  become: yes
   tasks:
   - name: ssh-key
     command: sshpass -p toor ssh-copy-id -i /root/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@bastion
     
   - name: ssh-key
-    command: sshpass -p toor ssh-copy-id -i /root/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@worker
+    command: sshpass -p toor ssh-copy-id -i /root/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@192.168.122.242
  
 - hosts: baswor
   become: yes
