@@ -25,12 +25,12 @@
       name: bind-utils
       state: present
       
-  - name: add hosts
-    blockinfile:
-      path: /etc/hosts
-      block: |
-        192.168.122.196 bastion
-        192.168.122.242 worker
+#  - name: add hosts
+#    blockinfile:
+#      path: /etc/hosts
+#      block: |
+#        192.168.122.196 bastion
+#        192.168.122.242 worker
       
       
   - name: dhcp
