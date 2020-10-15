@@ -73,6 +73,9 @@
         NETMASK="255.255.255.0"
         GATEWAY="192.168.122.1"
         PREFIX="24"
+        NM_CONTROLLED=yes 
+        PEERDNS=yes
+        DNS1=192.168.122.40
       
         
  
@@ -178,19 +181,6 @@
       state: restarted 
       
 
-      
-
-
-- hosts: worker
-  become: yes
-  tasks:
-  - name: replace named.conf
-    blockinfile:
-      path: /etc/sysconfig/network-scripts/ifcfg-eth0
-      block: |
-        NM_CONTROLLED=yes 
-        PEERDNS=yes
-        DNS1=192.168.122.40
      
        
         
