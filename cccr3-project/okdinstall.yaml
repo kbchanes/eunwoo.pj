@@ -178,7 +178,7 @@
   - name: install openshift
     yum:
       name: centos-release-openshift-origin311.noarch
-      state: installed
+      state: present
       
   - name: install ansible
     yum:
