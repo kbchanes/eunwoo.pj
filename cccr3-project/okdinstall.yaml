@@ -1,5 +1,5 @@
 
-- hosts: ssh-copy-id
+- hosts: bastion
   become: true
   tasks:
   - name: ssh-key
