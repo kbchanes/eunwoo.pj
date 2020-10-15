@@ -1,22 +1,9 @@
----
-# - hosts: bastion
-#   gather_facts: no
-#   tasks:
-#     - set_fact:
-#       rem_user: "{{ student | default(lookup('env','USER')) }}"
-#       rem_host: "{{ 192.168.122.10 }}"
-#     - local_action: command ssh-copy-id {{ student }}@{{ 192.168.122.10 }}
-#     - setup:
-#     - selinux:
-#         state: disabled
-      
-- hosts: bastion
+
+- hosts: ssh-copy-id
   become: true
   tasks:
   - name: ssh-key
-    command: sshpass -p toor ssh-copy-id -i /root/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@192.168.122.200
-  
-        
+    command: sshpass -p toor ssh-copy-id -i /root/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@192.168.122.242
  
 - hosts: baswor
   become: yes
@@ -36,17 +23,27 @@
       name: bind-utils
       state: present
       
-  - name: replave.resolv.conf
-    replace:
-      path: /etc/resolv.conf
-      regexp: 'nameserver 192.168.122.1'
-      replace: 'nameserver 192.168.122.40'
+  - name: add hosts
+    blockinfile:
+      path: /etc/hosts
+      block: |
+        192.168.122.40 bastion
+        192.168.122.242 worker
+      
       
   - name: dhcp
     replace:
       path: /etc/sysconfig/network-scripts/ifcfg-eth0
       regexp: 'BOOTPROTO=dhcp'
       replace: 'BOOTPROTO=static'
+      
+  - name: replace.resolv.conf
+    replace:
+      path: /etc/resolv.conf
+      regexp: 'nameserver 192.168.122.1'
+      replace: 'nameserver 192.168.122.40'
+      
+
       
 
 
@@ -71,6 +68,7 @@
     blockinfile:
       path: /etc/sysconfig/network-scripts/ifcfg-eth0
       block: |
+        IPADDR="192.168.122.242"
         NETMASK="255.255.255.0"
         GATEWAY="192.168.122.1"
         PREFIX="24"
@@ -78,20 +76,16 @@
         PEERDNS=yes
         DNS1=192.168.122.40
       
-        
- 
-    
-        
+  - name: add net.ipv4
+    lineinfile:
+      path: /etc/sysctl.conf
+      line: 'net.ipv4.ip_forward=1'
+      
       
   - name: network restart
     service:
       name: network
-      pattern: /etc/inid.d/network 
       state: restarted
-      
-  
-     
- 
       
 
 - hosts: bastion
@@ -145,7 +139,7 @@
       - " 3H ) ; minimum"
       - " IN NS ns.dong.com."
       - "ns IN A 192.168.122.40"
-      - "okd IN A 192.168.122.200"
+      - "okd IN A 192.168.122.242"
         
   - name: start named
     service:
@@ -165,11 +159,6 @@
       port: 53/udp
       permanent: true
       state: enabled
-    
-#  - name: ifcfg p
-#    lineinfile:
-#      path: /etc/sysconfig/network-scripts/ifcfg-eth0
-#      line: 'DNS1=192.168.122.40'
       
   - name: service start net man
     service:
@@ -182,17 +171,8 @@
 #      path: /etc/resolv.conf
 #      line: 'nameserver 192.168.122.40'
 
-- hosts: baswor
-  become: yes
-  tasks:
-  - name: add net.ipv4
-    lineinfile:
-      path: /etc/sysctl.conf
-      line: 'net.ipv4.ip_forward=1'
       
-- hosts: bastion
-  become: yes
-  tasks:
+
   - name: install openshift
     yum:
       name: centos-release-openshift-origin311.noarch
@@ -246,7 +226,7 @@
 
         debug_level=6
         
-        ansible_ssh_user=centos
+        ansible_ssh_user=root
         
         ansible_become=true
 
