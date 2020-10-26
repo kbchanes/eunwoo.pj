@@ -63,7 +63,7 @@
         DNS1=192.168.122.4
         
           
-- hosts: worker
+- hosts: master
   become: yes
   tasks:
   - name: dns static
