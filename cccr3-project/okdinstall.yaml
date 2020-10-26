@@ -3,7 +3,7 @@
   become: yes
   tasks:
   - name: ssh-key
-    command: sshpass -p toor ssh-copy-id -i /root/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@192.168.122.242
+    command: sshpass -p toor ssh-copy-id -i /root/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@192.168.122.214
     
  
  
@@ -29,8 +29,8 @@
     blockinfile:
       path: /etc/hosts
       block: |
-        192.168.122.196 ns.okd.com
-        192.168.122.242 master.okd.com
+        192.168.122.4 ns.okd.com
+        192.168.122.214 master.okd.com
       
       
   - name: dhcp
@@ -43,7 +43,7 @@
     replace:
       path: /etc/resolv.conf
       regexp: 'nameserver 192.168.122.1'
-      replace: 'nameserver 192.168.122.196'
+      replace: 'nameserver 192.168.122.4'
       
 
       
@@ -56,11 +56,11 @@
     blockinfile:
       path: /etc/sysconfig/network-scripts/ifcfg-eth0
       block: |
-        IPADDR="192.168.122.196"
+        IPADDR="192.168.122.4"
         NETMASK="255.255.255.0"
         GATEWAY="192.168.122.1"
         PREFIX="24"
-        DNS1=192.168.122.196
+        DNS1=192.168.122.4
         
           
 - hosts: worker
@@ -70,13 +70,13 @@
     blockinfile:
       path: /etc/sysconfig/network-scripts/ifcfg-eth0
       block: |
-        IPADDR="192.168.122.242"
+        IPADDR="192.168.122.214"
         NETMASK="255.255.255.0"
         GATEWAY="192.168.122.1"
         PREFIX="24"
         NM_CONTROLLED=yes 
         PEERDNS=yes
-        DNS1=192.168.122.196
+        DNS1=192.168.122.4
       
   - name: add net.ipv4
     lineinfile:
@@ -140,8 +140,8 @@
       - " 1W ; expire"
       - " 3H ) ; minimum"
       - " IN NS ns.okd.com."
-      - "ns IN A 192.168.122.196"
-      - "okd IN A 192.168.122.242"
+      - "ns IN A 192.168.122.4"
+      - "okd IN A 192.168.122.214"
         
   - name: start named
     service:
