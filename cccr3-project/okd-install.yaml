@@ -1,0 +1,2 @@
+- name: ansible-playbook deploy2
+    command: ansible-playbook -i /usr/share/ansible/openshift-ansible/inventory/hosts.localhost /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
