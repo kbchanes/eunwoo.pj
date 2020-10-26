@@ -45,7 +45,11 @@
       regexp: 'nameserver 192.168.122.1'
       replace: 'nameserver 192.168.122.4'
       
-
+  - name : add 8.8.8.8
+    blockinfile:
+      path: /etc/resolv.conf
+      block: |
+        nameserver 8.8.8.8
       
 
 
